@@ -22,7 +22,6 @@ export const CardUi = ({ card, isDragging, drag }: PropsType) => {
             <img src={card.image} alt={card.name} />
             <div className="flex flex-col">
                 <div className="text-lg font-bold">{card.name}</div>
-                <div className="text-sm">{card.description}</div>
             </div>
         </div>  
     )

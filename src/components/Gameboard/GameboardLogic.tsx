@@ -48,5 +48,5 @@ export const GameboardLogic = ({ isPlayerOne }: PropsType) => {
     const cardsInZone = (zoneId: string) => 
         droppedCards.filter(card => card.zoneId === zoneId);
 
-    return <GameboardUi playerZones={playerZones} droppedCards={droppedCards} cardsInZone={cardsInZone} />
+    return <GameboardUi playerZones={playerZones} cardsInZone={cardsInZone} />
 }
