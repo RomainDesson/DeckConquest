@@ -1,4 +1,5 @@
 import { CardType } from "../Card/types"
+import { CardAreaDroppedItem } from "./CardAreaDroppedItem/CardAreaDroppedItem"
 
 interface PropsType {
     isOver: boolean
@@ -8,9 +9,10 @@ interface PropsType {
 
 export const CardAreaUi = ({ isOver, drop, droppedCards }: PropsType) => {
     return (
-        <div
+        <div>
+            <div
             ref={drop}
-            className="flex flex-col justify-between items-center"
+            className="grid grid-cols-2 gap-2 justify-between items-center"
             style={{
                 height: '200px',
                 width: '150px',
@@ -20,9 +22,10 @@ export const CardAreaUi = ({ isOver, drop, droppedCards }: PropsType) => {
             }}
         >
             {droppedCards.map((card: CardType) => (
-                <div key={card.id}>{card.name}</div>
+                <CardAreaDroppedItem key={card.id} card={card} />
             ))}
-            <div>Points: {droppedCards.reduce((sum, card) => sum + card.power, 0)}</div>
+        </div>
+        <div>Points: {droppedCards.reduce((sum, card) => sum + card.power, 0)}</div>
         </div>
     )
 }

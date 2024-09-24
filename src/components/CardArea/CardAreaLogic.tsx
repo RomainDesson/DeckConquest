@@ -9,10 +9,13 @@ interface PropsType {
 }
 
 export const CardAreaLogic = ({zoneId, isBlocked, cards}: PropsType) => {
-
+    
     const handleDrop = () => {
       if (isBlocked) {
         return
+      }
+      if (cards.length >= 4) {
+        return;
       }
       return { zoneId };
     }

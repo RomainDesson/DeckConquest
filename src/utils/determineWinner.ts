@@ -9,8 +9,8 @@ export const determineWinner = (gameId: string, zonesScore: CardTypeWithZoneId[]
     let playerOneWonZone = 0
     let playerTwoWonZone = 0
 
-    const playerOneZones = ["0", "1", "2"]
-    const playerTwoZones = ["3", "4", "5"]
+    const playerOneZones = ["3", "4", "5"]
+    const playerTwoZones = ["0", "1", "2"]
 
     if (result[playerOneZones[0]] > result[playerTwoZones[0]]) {
         playerOneWonZone += 1

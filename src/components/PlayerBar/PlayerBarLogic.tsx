@@ -20,8 +20,8 @@ export const PlayerBarLogic = ({ playerName }: PropsType) => {
     }, [])
 
     const handleEndTurn = () => {
-        endTurn(gameId, player, deck.length === 0)
         setPlayerHasEndedTurn(true)
+        endTurn(gameId, player, deck.length === 0)
     }
 
     return <PlayerBarUi playerName={playerName} turnCount={turnCount} handleEndTurn={handleEndTurn} playerHasEndedTurn={playerHasEndedTurn} />

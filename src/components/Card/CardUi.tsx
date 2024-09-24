@@ -18,10 +18,10 @@ export const CardUi = ({ card, isDragging, drag }: PropsType) => {
                 margin: '4px',
                 backgroundColor: 'white',
             }}
+            className="flex flex-col justify-center items-center w-20 h-32"
         >
-            <img src={card.image} alt={card.name} />
             <div className="flex flex-col">
-                <div className="text-lg font-bold">{card.name}</div>
+                <div className="text-lg font-bold">{card.power}</div>
             </div>
         </div>  
     )

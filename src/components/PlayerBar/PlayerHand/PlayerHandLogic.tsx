@@ -1,6 +1,6 @@
 import { PlayerHandUi } from "./PlayerHandUi"
 import { CardType } from "../../Card/types"
-import { useEffect } from "react"
+import { useEffect, useCallback } from "react"
 import { useGameStore } from "../../../store/game"
 import { useDeckStore } from "../../../store/deck"
 import { socket } from "../../../utils/socket"
@@ -10,7 +10,7 @@ interface PropsType {
 }
 
 export const PlayerHandLogic = ({gameIsStarted}: PropsType) => {
-    const { gameId } = useGameStore();
+    const { gameId, playerHasEndedTurn } = useGameStore();
     const { drawCard, cardsInHand, playCard } = useDeckStore();
 
     useEffect(() => {
@@ -19,10 +19,10 @@ export const PlayerHandLogic = ({gameIsStarted}: PropsType) => {
         })
     }, [])
 
-    const playerPlayACard = (cardPlayed: CardType, zoneId: string) => {
+    const playerPlayACard = useCallback((cardPlayed: CardType, zoneId: string) => {
         socket.emit('playCard', gameId, cardPlayed, zoneId)
         playCard(cardPlayed)
-    }
+    }, [playerHasEndedTurn])
 
     if (!gameIsStarted) {
         return null
