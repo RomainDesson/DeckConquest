@@ -7,7 +7,7 @@ export const GameLayoutLogic = () => {
     const [opponentName, setOpponentName] = useState<string>(`Waiting for an opponent...` );
     const [isLogged, setIsLogged] = useState(false);
     const [gameIsStarted, setGameIsStarted] = useState(false);
-    const { gameId, setGameId, setTurnCount, setPlayer, setPlayerHasEndedTurn } = useGameStore();
+    const { gameId, setGameId, setTurnCount, setPlayer, setPlayerHasEndedTurn, setGameIsFinished } = useGameStore();
     const [isPlayerOne, setIsPlayerOne] = useState(false);
 
     const joinGame = () => {
@@ -41,6 +41,11 @@ export const GameLayoutLogic = () => {
             setTurnCount(turnCount);
             setPlayerHasEndedTurn(false);
             socket.emit('revealCards', gameId)
+        });
+
+        socket.on('gameEnded', () => {
+            console.log('Game ended');
+            setGameIsFinished(true);
         });
 
         return () => {

@@ -9,6 +9,8 @@ interface GameState {
     setPlayer: (player: {name: string, id: string}) => void;
     playerHasEndedTurn: boolean;
     setPlayerHasEndedTurn: (hasEnded: boolean) => void;
+    gameIsFinished: boolean;
+    setGameIsFinished: (finished: boolean) => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
@@ -20,4 +22,6 @@ export const useGameStore = create<GameState>((set) => ({
     setPlayer: (player: {name: string, id: string}) => set({ player: player }),
     playerHasEndedTurn: false,
     setPlayerHasEndedTurn: (hasEnded: boolean) => set({ playerHasEndedTurn: hasEnded }),
+    gameIsFinished: false,
+    setGameIsFinished: (finished: boolean) => set({ gameIsFinished: finished }),
 }));

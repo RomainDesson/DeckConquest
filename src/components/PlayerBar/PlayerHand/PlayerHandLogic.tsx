@@ -1,8 +1,6 @@
 import { PlayerHandUi } from "./PlayerHandUi"
 import { CardType } from "../../Card/types"
 import { useEffect } from "react"
-import { PlayerDeck } from "../PlayerDeck"
-import { shuffleDeck } from "../../../utils/shuffleDeck"
 import { useGameStore } from "../../../store/game"
 import { useDeckStore } from "../../../store/deck"
 import { socket } from "../../../utils/socket"
@@ -13,12 +11,7 @@ interface PropsType {
 
 export const PlayerHandLogic = ({gameIsStarted}: PropsType) => {
     const { gameId } = useGameStore();
-    const { initializeDeck, drawCard, cardsInHand, playCard } = useDeckStore();
-
-    useEffect(() => {
-        initializeDeck(shuffleDeck(PlayerDeck))
-        drawCard(5)
-    }, [gameIsStarted])
+    const { drawCard, cardsInHand, playCard } = useDeckStore();
 
     useEffect(() => {
         socket.on('endTurn', () => {

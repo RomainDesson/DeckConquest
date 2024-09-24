@@ -2,6 +2,8 @@ import { GameboardUi } from "./GameboardUi"
 import { useEffect, useState } from 'react'
 import { socket } from '../../utils/socket'
 import { CardType } from '../Card/types'
+import { useGameStore } from '../../store/game'
+import { determineWinner } from '../../utils/determineWinner'
 
 export type CardTypeWithZoneId = CardType & {
     zoneId: string
@@ -12,7 +14,9 @@ interface PropsType {
 }
 
 export const GameboardLogic = ({ isPlayerOne }: PropsType) => {
+    const { gameIsFinished, gameId } = useGameStore();
     const [droppedCards, setDroppedCards] = useState<CardTypeWithZoneId[]>([]);
+    const [winner, setWinner] = useState<string>('');
 
     const playerZones = isPlayerOne 
         ? ["3", "4", "5", "0", "1", "2"] // Normal view for player 1
@@ -45,8 +49,18 @@ export const GameboardLogic = ({ isPlayerOne }: PropsType) => {
         };
     }, []);
 
+    useEffect(() => {
+        if (gameIsFinished) {
+            determineWinner(gameId, droppedCards);
+            socket.on('winner', (winner) => {
+                setWinner(winner)
+                console.log(winner)
+            })
+        }
+    }, [gameIsFinished]);
+
     const cardsInZone = (zoneId: string) => 
         droppedCards.filter(card => card.zoneId === zoneId);
 
-    return <GameboardUi playerZones={playerZones} cardsInZone={cardsInZone} />
+    return <GameboardUi playerZones={playerZones} cardsInZone={cardsInZone} gameIsFinished={gameIsFinished} winner={winner} />
 }
