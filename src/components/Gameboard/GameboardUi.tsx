@@ -1,5 +1,4 @@
 import { CardAreaLogic } from "../CardArea/CardAreaLogic"
-import { LandAreaLogic } from "../LandArea/LandAreaLogic"
 import { CardTypeWithZoneId } from "./GameboardLogic"
 
 interface PropsType {
