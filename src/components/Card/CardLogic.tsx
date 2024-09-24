@@ -20,8 +20,6 @@ export const CardLogic = ({ card, playerPlayACard }: PropsType) => {
       if (dropResult && typeof dropResult === "object" && "zoneId" in dropResult) {
         const zoneId = dropResult.zoneId as string;
         const currentPlayerHasEndedTurn = useGameStore.getState().playerHasEndedTurn;
-        console.log("playerHasEndedTurn (during drag end)", currentPlayerHasEndedTurn);
-
         if (currentPlayerHasEndedTurn) {
           return;
         }

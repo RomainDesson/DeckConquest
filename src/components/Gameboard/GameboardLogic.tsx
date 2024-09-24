@@ -37,7 +37,6 @@ export const GameboardLogic = ({ isPlayerOne }: PropsType) => {
 
     useEffect(() => {
         socket.on('cardsRevealed', (revealedCards) => {
-            console.log(revealedCards)
             const updatedCards = Object.keys(revealedCards).flatMap(zoneId => 
                 revealedCards[zoneId].map((card: CardType) => ({ ...card, zoneId }))
             );
@@ -54,7 +53,6 @@ export const GameboardLogic = ({ isPlayerOne }: PropsType) => {
             determineWinner(gameId, droppedCards);
             socket.on('winner', (winner) => {
                 setWinner(winner)
-                console.log(winner)
             })
         }
     }, [gameIsFinished]);

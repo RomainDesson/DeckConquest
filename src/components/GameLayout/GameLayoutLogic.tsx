@@ -22,10 +22,6 @@ export const GameLayoutLogic = () => {
             setPlayer(player);
         });
 
-        socket.on('playerJoined', (player: string) => {
-            console.log(`${player} a rejoint la partie.`);
-        });
-
         socket.on('startGame', ({ player1, player2 }) => {
             if (player1.name === playerName) {
                 setIsPlayerOne(true);
@@ -44,7 +40,6 @@ export const GameLayoutLogic = () => {
         });
 
         socket.on('gameEnded', () => {
-            console.log('Game ended');
             setGameIsFinished(true);
         });
 

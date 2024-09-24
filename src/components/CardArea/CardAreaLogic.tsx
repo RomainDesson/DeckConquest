@@ -14,12 +14,8 @@ export const CardAreaLogic = ({zoneId, isBlocked, cards}: PropsType) => {
       if (isBlocked) {
         return
       }
-      if (cards.length >= 4) {
-        return;
-      }
       return { zoneId };
     }
-
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: 'CARD',
@@ -29,5 +25,5 @@ export const CardAreaLogic = ({zoneId, isBlocked, cards}: PropsType) => {
         }),
       }));
 
-    return <CardAreaUi isOver={isOver} drop={drop} droppedCards={cards} />
+    return <CardAreaUi isOver={isOver} drop={drop} droppedCards={cards} isBlocked={isBlocked} />
 }

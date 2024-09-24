@@ -5,13 +5,14 @@ interface PropsType {
     isOver: boolean
     drop: any
     droppedCards: CardType[]
+    isBlocked: boolean
 }
 
-export const CardAreaUi = ({ isOver, drop, droppedCards }: PropsType) => {
+export const CardAreaUi = ({ isOver, drop, droppedCards, isBlocked }: PropsType) => {
     return (
         <div>
             <div
-            ref={drop}
+            ref={isBlocked ? () => {} : drop}
             className="grid grid-cols-2 gap-2 justify-between items-center"
             style={{
                 height: '200px',
