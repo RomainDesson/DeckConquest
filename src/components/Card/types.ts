@@ -1,9 +1,7 @@
 export type CardType = {
     id: string
     name:string
+    manaCost: number
     power: number
-    life: number
     image: string
-    description?: string
-    specialEffect?: string
 }

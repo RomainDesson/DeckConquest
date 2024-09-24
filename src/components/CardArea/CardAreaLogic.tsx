@@ -1,19 +1,30 @@
 import { useDrop } from 'react-dnd'
-import { useState } from 'react'
 import { CardAreaUi } from './CardAreaUi'
+import { CardTypeWithZoneId } from '../Gameboard/GameboardLogic'
 
-export const CardAreaLogic = () => {
-    const [droppedCards, setDroppedCards] = useState<string[]>([]);
+interface PropsType {
+  zoneId: string
+  isBlocked: boolean
+  cards: CardTypeWithZoneId[]
+}
 
-    const handleDrop = (item: { id: string }) => {
-        setDroppedCards((prev) => [...prev, item.id]);
-    };
+export const CardAreaLogic = ({zoneId, isBlocked, cards}: PropsType) => {
+
+    const handleDrop = () => {
+      if (isBlocked) {
+        return
+      }
+      return { zoneId };
+    }
+
+
     const [{ isOver }, drop] = useDrop(() => ({
         accept: 'CARD',
-        drop: (item) => handleDrop(item),
+        drop: () => handleDrop(),
         collect: (monitor) => ({
           isOver: monitor.isOver(),
         }),
       }));
-    return <CardAreaUi isOver={isOver} drop={drop} droppedCards={droppedCards} />
+
+    return <CardAreaUi isOver={isOver} drop={drop} droppedCards={cards} />
 }

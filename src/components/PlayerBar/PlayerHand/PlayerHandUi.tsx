@@ -2,15 +2,15 @@ import { CardLogic } from "../../Card/CardLogic"
 import { CardType } from "../../Card/types"
 
 interface PropsType {
-    cards: CardType[]
-    removeCardFromHand: (cardId: string) => void
+    cardsInHand: CardType[]
+    playerPlayACard: (card: CardType, zoneId: string) => void
 }
 
-export const PlayerHandUi = ({ cards, removeCardFromHand }: PropsType) => {
+export const PlayerHandUi = ({ cardsInHand, playerPlayACard }: PropsType) => {
     return (
         <div className="flex absolute bottom-3 left-1/2 transform -translate-x-1/2">
-            {cards.map((card) => (
-                <CardLogic key={card.id} card={card} removeCardFromHand={removeCardFromHand} />
+            {cardsInHand.map((card) => (
+                <CardLogic key={card.id} card={card} playerPlayACard={playerPlayACard} />
             ))}
         </div>
     )

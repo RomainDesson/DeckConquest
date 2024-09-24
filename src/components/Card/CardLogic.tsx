@@ -4,19 +4,21 @@ import { useDrag } from 'react-dnd'
 
 interface PropsType {
     card: CardType
-    removeCardFromHand: (cardId: string) => void
+    playerPlayACard: (cardId: CardType, zoneId: string) => void
 }
 
-export const CardLogic = ({ card, removeCardFromHand }: PropsType) => {
+export const CardLogic = ({ card, playerPlayACard }: PropsType) => {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: 'CARD',
-        item: { id: card.id },
+        item: card,
         collect: (monitor) => ({
           isDragging: monitor.isDragging(),
         }),
         end: (item, monitor) => {
-            if (monitor.didDrop()) {
-                removeCardFromHand(item.id)
+            const dropResult = monitor.getDropResult();
+            if (dropResult && typeof dropResult === 'object' && 'zoneId' in dropResult) {
+                const zoneId = dropResult.zoneId as string
+                playerPlayACard(item, zoneId);
             }
         }
       }));

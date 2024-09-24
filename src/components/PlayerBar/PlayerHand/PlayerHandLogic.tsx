@@ -1,41 +1,39 @@
 import { PlayerHandUi } from "./PlayerHandUi"
 import { CardType } from "../../Card/types"
-import { useState, useCallback } from "react"
+import { useEffect } from "react"
+import { PlayerDeck } from "../PlayerDeck"
+import { shuffleDeck } from "../../../utils/shuffleDeck"
+import { useGameStore } from "../../../store/game"
+import { useDeckStore } from "../../../store/deck"
+import { socket } from "../../../utils/socket"
 
-export const PlayerHandLogic = () => {
-    const [cards, setCards] = useState<CardType[]>([
-        {
-            id: "1",
-            power: 1,
-            life: 1,
-            image: "card1.png",
-            name: "Card 1",
-            description: "Card 1 description",
-            specialEffect: "Card 1 special effect",
-        },
-        {
-            id: "2",
-            power: 2,
-            life: 2,
-            image: "card2.png",
-            name: "Card 2",
-            description: "Card 2 description",
-            specialEffect: "Card 2 special effect",
-        },
-        {
-            id: "3",
-            power: 3,
-            life: 3,
-            image: "card3.png",
-            name: "Card 3",
-            description: "Card 3 description",
-            specialEffect: "Card 3 special effect",
-        },
-    ])
+interface PropsType {
+    gameIsStarted: boolean
+}
 
-    const removeCardFromHand = useCallback((cardId: string) => {
-        setCards((prevCards) => prevCards.filter((card) => card.id !== cardId))
+export const PlayerHandLogic = ({gameIsStarted}: PropsType) => {
+    const { gameId } = useGameStore();
+    const { initializeDeck, drawCard, cardsInHand, playCard } = useDeckStore();
+
+    useEffect(() => {
+        initializeDeck(shuffleDeck(PlayerDeck))
+        drawCard(5)
+    }, [gameIsStarted])
+
+    useEffect(() => {
+        socket.on('endTurn', () => {
+            drawCard(1)
+        })
     }, [])
 
-    return <PlayerHandUi cards={cards} removeCardFromHand={removeCardFromHand} />
+    const playerPlayACard = (cardPlayed: CardType, zoneId: string) => {
+        socket.emit('playCard', gameId, cardPlayed, zoneId)
+        playCard(cardPlayed)
+    }
+
+    if (!gameIsStarted) {
+        return null
+    }
+
+    return <PlayerHandUi cardsInHand={cardsInHand} playerPlayACard={playerPlayACard} />
 }
