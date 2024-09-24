@@ -11,7 +11,7 @@ interface PropsType {
 }
 
 export const PlayerBarLogic = ({ playerName }: PropsType) => {
-    const { gameId, turnCount, player, playerHasEndedTurn, setPlayerHasEndedTurn, setGameIsFinished } = useGameStore();
+    const { gameId, turnCount, player, playerHasEndedTurn, setPlayerHasEndedTurn } = useGameStore();
     const { initializeDeck, drawCard, deck } = useDeckStore();
 
     useEffect(() => {
