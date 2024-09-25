@@ -5,7 +5,7 @@ const createDeck = (color: string): CardType[] => {
         id: `${color}-${index + 1}`,
         name: `${color.charAt(0).toUpperCase() + color.slice(1)} Card ${index + 1}`,
         power: index + 1,
-        image: `../../../../public/cards/${color}_${index + 1}.png`,
+        image: `/cards/${color}_${index + 1}.png`,
     }));
 };
 
