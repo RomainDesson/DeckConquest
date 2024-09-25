@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { GameLayoutUi } from "./GameLayoutUi";
 import { socket } from "../../utils/socket";
 import { useGameStore } from "../../store/game";
+
 export const GameLayoutLogic = () => {
     const [playerName, setPlayerName] = useState<string>('');
     const [opponentName, setOpponentName] = useState<string>(`Waiting for an opponent...` );
@@ -34,7 +35,8 @@ export const GameLayoutLogic = () => {
         });
 
         socket.on('endTurn', (turnCount: number) => {
-            setTurnCount(turnCount);
+            console.log("turnCount", turnCount)
+            setTurnCount(turnCount)
             setPlayerHasEndedTurn(false);
             socket.emit('revealCards', gameId)
         });

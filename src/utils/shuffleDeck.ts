@@ -1,5 +1,7 @@
 import { CardType } from "../components/Card/types"
 
 export const shuffleDeck = (deck: CardType[]) => {
-    return deck.sort(() => Math.random() - 0.5)
+    const shuffledDeck = deck.sort(() => Math.random() - 0.5);
+    shuffledDeck.splice(0, 3);
+    return shuffledDeck.slice(0, 10);
 }

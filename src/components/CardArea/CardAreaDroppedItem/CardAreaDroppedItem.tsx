@@ -6,8 +6,8 @@ interface PropsType {
 
 export const CardAreaDroppedItem = ({ card }: PropsType) => {
     return (
-        <div className='border-2 border-gray-300 h-full w-full flex justify-center items-center'>
-            <div>{card.power}</div>
+        <div>
+            <img className="w-full h-full" src={card.image} alt={card.name} />
         </div>
     )
 }

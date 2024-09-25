@@ -3,7 +3,6 @@ import { useGameStore } from "../../store/game"
 import { endTurn } from "../../utils/endTurn"
 import { useDeckStore } from "../../store/deck"
 import { useEffect } from "react"
-import { PlayerDeck } from './PlayerDeck'
 import { shuffleDeck } from '../../utils/shuffleDeck'
 
 interface PropsType {
@@ -11,11 +10,11 @@ interface PropsType {
 }
 
 export const PlayerBarLogic = ({ playerName }: PropsType) => {
-    const { gameId, turnCount, player, playerHasEndedTurn, setPlayerHasEndedTurn } = useGameStore();
+    const { gameId, turnCount, player, playerHasEndedTurn, setPlayerHasEndedTurn, playerDeck } = useGameStore();
     const { initializeDeck, drawCard, deck } = useDeckStore();
 
     useEffect(() => {
-        initializeDeck(shuffleDeck(PlayerDeck))
+        initializeDeck(shuffleDeck(playerDeck))
         drawCard(5)
     }, [])
 

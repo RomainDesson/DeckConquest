@@ -13,13 +13,12 @@ export const CardAreaUi = ({ isOver, drop, droppedCards, isBlocked }: PropsType)
         <div>
             <div
             ref={isBlocked ? () => {} : drop}
-            className="grid grid-cols-2 gap-2 justify-between items-center"
+            className={`grid grid-cols-2 gap-2 justify-between items-center rounded-lg ${isOver ? 'bg-green-300' : ''}`}
             style={{
                 height: '200px',
                 width: '150px',
-                border: '1px dashed gray',
+                border: '2px solid white',
                 position: 'relative',
-                backgroundColor: isOver ? 'lightgreen' : 'white',
             }}
         >
             {droppedCards.map((card: CardType) => (

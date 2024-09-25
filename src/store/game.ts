@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { CardType } from '../components/Card/types';
 
 interface GameState {
     gameId: string;
@@ -11,6 +12,8 @@ interface GameState {
     setPlayerHasEndedTurn: (hasEnded: boolean) => void;
     gameIsFinished: boolean;
     setGameIsFinished: (finished: boolean) => void;
+    playerDeck: CardType[];
+    setPlayerDeck: (deck: CardType[]) => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
@@ -24,4 +27,6 @@ export const useGameStore = create<GameState>((set) => ({
     setPlayerHasEndedTurn: (hasEnded: boolean) => set({ playerHasEndedTurn: hasEnded }),
     gameIsFinished: false,
     setGameIsFinished: (finished: boolean) => set({ gameIsFinished: finished }),
+    playerDeck: [],
+    setPlayerDeck: (deck: CardType[]) => set({ playerDeck: deck }),
 }));

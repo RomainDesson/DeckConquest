@@ -2,6 +2,7 @@ import { GameboardLogic } from "../Gameboard/GameboardLogic"
 import { OpponentBarUi } from "../OpponentBar/OpponentBarUi"
 import { PlayerHandLogic } from "../PlayerBar/PlayerHand/PlayerHandLogic"
 import { PlayerBarLogic } from "../PlayerBar/PlayerBarLogic"
+import { PreGameScreenLogic } from "../PreGameScreen/PreGameScreenLogic"
 
 interface PropsType {
     isLogged: boolean
@@ -17,19 +18,11 @@ interface PropsType {
 export const GameLayoutUi = ({isLogged, joinGame, playerName, opponentName, setGameId, setPlayerName, gameIsStarted, isPlayerOne}: PropsType) => {
 
     if (!isLogged) {
-        return (
-            <div className="flex flex-col justify-between">
-                <form onSubmit={joinGame}>
-                    <input className={'border border-gray-300 rounded-md p-2'} placeholder="Game ID" type="text" onChange={(e) => setGameId(e.target.value)} />
-                    <input className={'border border-gray-300 rounded-md p-2'} placeholder="Player Name" type="text" onChange={(e) => setPlayerName(e.target.value)} />
-                    <button className={'border border-gray-300 rounded-md p-2'} type="submit">Join Game</button>
-                </form>
-            </div>
-        )
+        return <PreGameScreenLogic joinGame={joinGame} setGameId={setGameId} setPlayerName={setPlayerName} />
     }
 
     return (
-        <div className="w-screen h-screen flex flex-col justify-between">
+        <div className="w-screen h-screen flex flex-col justify-between bg-green-600">
             <OpponentBarUi opponentName={opponentName} />
             {gameIsStarted ? <GameboardLogic isPlayerOne={isPlayerOne} /> : <div>Waiting for the game to start...</div>}
             <PlayerHandLogic gameIsStarted={gameIsStarted} />
