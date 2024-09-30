@@ -7,7 +7,6 @@ interface PropsType {
 }
 
 export const CardUi = ({ card, isDragging, drag }: PropsType) => {
-    console.log(`url(${card.image})`)
     return (
         <div
             ref={drag}

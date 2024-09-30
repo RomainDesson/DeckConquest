@@ -35,7 +35,6 @@ export const GameLayoutLogic = () => {
         });
 
         socket.on('endTurn', (turnCount: number) => {
-            console.log("turnCount", turnCount)
             setTurnCount(turnCount)
             setPlayerHasEndedTurn(false);
             socket.emit('revealCards', gameId)
