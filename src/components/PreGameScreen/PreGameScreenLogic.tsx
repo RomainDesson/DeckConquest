@@ -2,7 +2,7 @@ import { PreGameScreenUi } from "./PreGameScreenUi";
 import { CardType } from "../Card/types";
 import { useGameStore } from "../../store/game";
 import { heartsDeck } from "../PlayerBar/PlayerDeck";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface PropsType {
     joinGame: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -12,6 +12,7 @@ interface PropsType {
 
 export const PreGameScreenLogic = ({joinGame, setGameId, setPlayerName}: PropsType) => {
     const { playerDeck, setPlayerDeck } = useGameStore();
+    const [showRules, setShowRules] = useState(false);
 
     useEffect(() => {
         setPlayerDeck(heartsDeck)
@@ -22,6 +23,6 @@ export const PreGameScreenLogic = ({joinGame, setGameId, setPlayerName}: PropsTy
     }
 
     return (
-        <PreGameScreenUi joinGame={joinGame} setGameId={setGameId} setPlayerName={setPlayerName} handleSetPlayerDeck={handleSetPlayerDeck} playerDeck={playerDeck} />
+        <PreGameScreenUi joinGame={joinGame} setGameId={setGameId} setPlayerName={setPlayerName} handleSetPlayerDeck={handleSetPlayerDeck} playerDeck={playerDeck} showRules={showRules} setShowRules={setShowRules} />
     )
 }
