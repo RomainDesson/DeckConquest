@@ -1,5 +1,6 @@
 import { CardLogic } from "../../Card/CardLogic"
 import { CardType } from "../../Card/types"
+import { motion } from "framer-motion"
 
 interface PropsType {
     cardsInHand: CardType[]
@@ -8,10 +9,21 @@ interface PropsType {
 
 export const PlayerHandUi = ({ cardsInHand, playerPlayACard }: PropsType) => {
     return (
-        <div className="flex absolute bottom-3 left-1/2 transform -translate-x-1/2">
-            {cardsInHand.map((card) => (
-                <CardLogic key={card.id} card={card} playerPlayACard={playerPlayACard} />
+        <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex absolute bottom-24 left-1/2 transform -translate-x-1/2 gap-4"
+        >
+            {cardsInHand.map((card, index) => (
+                <motion.div
+                    key={card.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                >
+                    <CardLogic card={card} playerPlayACard={playerPlayACard} />
+                </motion.div>
             ))}
-        </div>
+        </motion.div>
     )
 }

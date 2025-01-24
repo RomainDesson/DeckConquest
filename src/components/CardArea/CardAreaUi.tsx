@@ -10,22 +10,22 @@ interface PropsType {
 
 export const CardAreaUi = ({ isOver, drop, droppedCards, isBlocked }: PropsType) => {
     return (
-        <div>
+        <div className="flex flex-col items-center gap-2">
             <div
-            ref={isBlocked ? () => {} : drop}
-            className={`grid grid-cols-2 gap-2 justify-between items-center rounded-lg ${isOver ? 'bg-green-300' : ''}`}
-            style={{
-                height: '200px',
-                width: '150px',
-                border: '2px solid white',
-                position: 'relative',
-            }}
-        >
-            {droppedCards.map((card: CardType) => (
-                <CardAreaDroppedItem key={card.id} card={card} />
-            ))}
-        </div>
-        <div>Points: {droppedCards.reduce((sum, card) => sum + card.power, 0)}</div>
+                ref={isBlocked ? () => {} : drop}
+                className={`relative w-full aspect-[3/4] rounded-xl border-2 border-white/20 backdrop-blur-sm transition-colors ${
+                    isOver ? 'bg-amber-500/20' : 'bg-white/5'
+                } flex flex-wrap content-start justify-center gap-1 p-2`}
+            >
+                {droppedCards.map((card: CardType) => (
+                    <div key={card.id} className="w-[45%] aspect-[3/4]">
+                        <CardAreaDroppedItem card={card} />
+                    </div>
+                ))}
+            </div>
+            <div className="text-sm text-zinc-400">
+                Points: <span className="text-amber-500">{droppedCards.reduce((sum, card) => sum + card.power, 0)}</span>
+            </div>
         </div>
     )
 }
